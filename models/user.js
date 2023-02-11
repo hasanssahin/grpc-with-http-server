@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Joi = require('joi')
-const { string } = require('joi')
 
 const features = {
 	type: String,
@@ -37,19 +35,6 @@ const user = new Schema({
 		minlength: 6,
 	},
 })
-
-const schema = Joi.object({
-	name: Joi.min(2).max(50),
-	surname: Joi.min(2).max(50),
-	username: Joi.min(5).max(50),
-	email: Joi.email(),
-	password: Joi.min(6),
-})
-
-user.methods.joiValidation = function (userObject) {
-	schema.string().required().trim()
-	return schema.validate(userObject)
-}
 
 const User = mongoose.model('users', user)
 

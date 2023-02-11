@@ -1,4 +1,4 @@
-const PROTO_PATH = './user.proto'
+const PROTO_PATH = '../user.proto'
 const grpc = require('@grpc/grpc-js')
 const protoLoader = require('@grpc/proto-loader')
 require('../database/connection')
@@ -19,7 +19,7 @@ server.addService(userProto.UserService.service, {
 		const user = new User(reqBody)
 		const result = await user.save()
 		if (!result) {
-			console.log('HATA')
+			console.log('FAIL')
 		}
 		callback(null, { user })
 	},
@@ -30,6 +30,6 @@ server.bindAsync(
 	grpc.ServerCredentials.createInsecure(),
 	(error, port) => {
 		server.start()
-		console.log('Server 3000 portundan ayaklandırıldı')
+		console.log('Server listening on PORT 3000')
 	}
 )
